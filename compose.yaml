@@ -5,9 +5,22 @@ services:
   mailer:
     image: axllent/mailpit
     ports:
-      - "1025"
-      - "8025"
-    environment:
-      MP_SMTP_AUTH_ACCEPT_ANY: 1
-      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      - "1025:1025"
+      - "8025:8025"
+#    environment:
+#      MP_SMTP_AUTH_ACCEPT_ANY: 1
+#      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+#    image: schickling/mailcatcher
+#    ports: [ 1025, 1080 ]
 ###< symfony/mailer ###
+  database:
+      image: 'mysql:8.0'
+      volumes:
+        - ./mysql:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: main
+#        MYSQL_USER: root
+      ports:
+        - "3307:3306"
+
